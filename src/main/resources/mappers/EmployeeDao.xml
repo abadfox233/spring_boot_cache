@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ning.cache.dao.EmployeeDao">
+  <resultMap id="BaseResultMap" type="org.ning.cache.entity.Employee">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="gender" jdbcType="BOOLEAN" property="gender" />
+    <result column="department_id" jdbcType="BIGINT" property="departmentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, last_name, email, gender, department_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from employee
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.ning.cache.entity.Employee" useGeneratedKeys="true">
+    insert into employee (last_name, email, gender, 
+      department_id)
+    values (#{lastName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=BOOLEAN}, 
+      #{departmentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.ning.cache.entity.Employee" useGeneratedKeys="true">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lastName != null">
+        last_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lastName != null">
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BOOLEAN},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.ning.cache.entity.Employee">
+    update employee
+    <set>
+      <if test="lastName != null">
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BOOLEAN},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.ning.cache.entity.Employee">
+    update employee
+    set last_name = #{lastName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BOOLEAN},
+      department_id = #{departmentId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

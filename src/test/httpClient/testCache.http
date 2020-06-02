@@ -1,0 +1,20 @@
+GET http://localhost:8080/api/v3/get_employee/1
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/v3/update_employee/2
+Accept: application/json
+
+###
+
+
+GET http://localhost:8080/api/v3/delete_employee/3
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/v3/query_lastName/张三
+Accept: application/json
+
+###
